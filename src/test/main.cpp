@@ -24,7 +24,9 @@ namespace Catch {
 
 
 #include <catch.hpp>
+#include <cstddef>
 #include <cstdint>
+#include <functional>
 #include <limits>
 #include <stdexcept>
 #include <type_traits>
@@ -38,6 +40,14 @@ template <typename T, typename... Args>
 T Construct (Args &&... args) noexcept(std::is_nothrow_constructible<T,Args...>::value) {
 
 	return T(std::forward<Args>(args)...);
+
+}
+
+
+template <typename T>
+std::size_t Hash (T && obj) noexcept(noexcept(std::hash<typename std::decay<T>::type>{}(std::forward<T>(obj)))) {
+
+	return std::hash<typename std::decay<T>::type>{}(std::forward<T>(obj));
 
 }
 
@@ -2297,4 +2307,47 @@ SCENARIO("Safe integers may be compared for inequality") {
 	
 	}
 	
+}
+
+
+SCENARIO("Safe integers may be hashed") {
+
+	GIVEN("A safe integer") {
+	
+		Integer<unsigned int> s(1);
+		
+		GIVEN("An integer of identical value and type") {
+		
+			unsigned int i=1;
+			
+			WHEN("They are hashed") {
+			
+				THEN("Their hashes are the same") {
+				
+					CHECK(Hash(s)==Hash(i));
+				
+				}
+			
+			}
+		
+		}
+		
+		GIVEN("An integer of different value and identical type") {
+		
+			unsigned int i=2;
+			
+			WHEN("They are hashed") {
+			
+				THEN("Their hashes are not the same") {
+				
+					CHECK(Hash(s)!=Hash(i));
+				
+				}
+			
+			}
+		
+		}
+	
+	}
+
 }

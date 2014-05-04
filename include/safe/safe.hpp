@@ -1323,7 +1323,7 @@ namespace std {
 		
 			size_t operator () (const Safe::Integer<T> & i) const noexcept {
 			
-				return hash<T>{}(static_cast<T>(i));
+				return hash<T>{}(i.Get());
 			
 			}
 	
