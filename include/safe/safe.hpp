@@ -836,6 +836,26 @@ namespace Safe {
 	}
 	
 	
+	template <typename T>
+	Integer<T> & operator ++ (Integer<T> & i) {
+	
+		return i+=1;
+	
+	}
+	
+	
+	template <typename T>
+	Integer<T> operator ++ (Integer<T> & i, int) {
+	
+		auto retr=i;
+		
+		++i;
+		
+		return retr;
+	
+	}
+	
+	
 	template <typename A, typename B>
 	Integer<A> & operator -= (Integer<A> & a, B b) {
 	
@@ -880,6 +900,26 @@ namespace Safe {
 	Integer<A> operator - (A a, Integer<B> b) {
 	
 		return a-=b;
+	
+	}
+	
+	
+	template <typename T>
+	Integer<T> & operator -- (Integer<T> & i) {
+	
+		return i-=1;
+	
+	}
+	
+	
+	template <typename T>
+	Integer<T> operator -- (Integer<T> & i, int) {
+	
+		auto retr=i;
+		
+		--i;
+		
+		return retr;
 	
 	}
 	

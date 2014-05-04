@@ -857,6 +857,69 @@ SCENARIO("Safe integers may be safely added") {
 }
 
 
+SCENARIO("Safe integers may be safely incremented") {
+
+	GIVEN("A safe integer which is not the maximum value") {
+	
+		int i=1;
+		Integer<int> s(i);
+		
+		WHEN("It is pre incremented") {
+		
+			THEN("The result is correct") {
+			
+				CHECK(((++s)==(++i)));
+				CHECK((s==i));
+			
+			}
+		
+		}
+		
+		WHEN("It is post incremented") {
+		
+			THEN("The result is correct") {
+			
+				CHECK(((s++)==(i++)));
+				CHECK((s==i));
+			
+			}
+		
+		}
+	
+	}
+	
+	GIVEN("A safe integer which is the maximum value") {
+	
+		auto i=std::numeric_limits<int>::max();
+		Integer<int> s(i);
+		
+		WHEN("It is pre incremented") {
+		
+			THEN("An exception is thrown") {
+			
+				REQUIRE_THROWS_AS(++s,std::overflow_error);
+				CHECK((s==i));
+			
+			}
+		
+		}
+		
+		WHEN("It is post incremented") {
+		
+			THEN("An exception is thrown and the safe integer does not change") {
+			
+				REQUIRE_THROWS_AS(s++,std::overflow_error);
+				CHECK((s==i));
+			
+			}
+		
+		}
+	
+	}
+
+}
+
+
 SCENARIO("Safe integers may be safely subtracted") {
 
 	GIVEN("An unsigned safe integer") {
@@ -1021,6 +1084,69 @@ SCENARIO("Safe integers may be safely subtracted") {
 	
 	}
 	
+}
+
+
+SCENARIO("Safe integers may be safely decremented") {
+
+	GIVEN("A safe integer which is not the minimum value") {
+	
+		int i=1;
+		Integer<int> s(i);
+		
+		WHEN("It is pre decremented") {
+		
+			THEN("The result is correct") {
+			
+				CHECK(((--s)==(--i)));
+				CHECK((s==i));
+			
+			}
+		
+		}
+		
+		WHEN("It is post decremented") {
+		
+			THEN("The result is correct") {
+			
+				CHECK(((s--)==(i--)));
+				CHECK((s==i));
+			
+			}
+		
+		}
+	
+	}
+	
+	GIVEN("A safe integer which is the minimum value") {
+	
+		auto i=std::numeric_limits<int>::min();
+		Integer<int> s(i);
+		
+		WHEN("It is pre decremented") {
+		
+			THEN("An exception is thrown and the safe integer does not change") {
+			
+				REQUIRE_THROWS_AS(--s,std::overflow_error);
+				CHECK((s==i));
+			
+			}
+		
+		}
+		
+		WHEN("It is post decremented") {
+		
+			THEN("An exception is thrown and the safe integer does not change") {
+			
+				REQUIRE_THROWS_AS(s--,std::overflow_error);
+				CHECK((s==i));
+			
+			}
+		
+		}
+	
+	}
+
 }
 
 
