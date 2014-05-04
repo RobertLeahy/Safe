@@ -630,7 +630,7 @@ SCENARIO("Safe integers may be safely cast to integers of any type") {
 			
 			THEN("An exception is thrown") {
 			
-				REQUIRE_THROWS_AS(static_cast<stype>(i),std::overflow_error);
+				REQUIRE_THROWS_AS(i.Get<stype>(),std::overflow_error);
 			
 			}
 		
@@ -654,7 +654,7 @@ SCENARIO("Safe integers may be safely converted to safe integers of other types"
 			
 			THEN("No exception is thrown") {
 			
-				REQUIRE_NOTHROW(static_cast<stype>(i));
+				REQUIRE_NOTHROW(i.Get<stype>());
 			
 			}
 		
@@ -666,7 +666,7 @@ SCENARIO("Safe integers may be safely converted to safe integers of other types"
 			
 			THEN("No exception is thrown") {
 			
-				REQUIRE_NOTHROW(static_cast<stype>(i));
+				REQUIRE_NOTHROW(i.Get<stype>());
 			
 			}
 		
@@ -678,7 +678,7 @@ SCENARIO("Safe integers may be safely converted to safe integers of other types"
 			
 			THEN("An exception is thrown") {
 			
-				REQUIRE_THROWS_AS(static_cast<stype>(i),std::overflow_error);
+				REQUIRE_THROWS_AS(i.Get<stype>(),std::overflow_error);
 			
 			}
 		
