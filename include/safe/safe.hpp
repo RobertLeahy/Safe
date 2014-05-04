@@ -720,6 +720,19 @@ namespace Safe {
 			
 			
 			/**
+			 *	Retrieves the integer this safe integer represents.
+			 *
+			 *	\return
+			 *		The integer.
+			 */
+			constexpr IntegerType Get () const noexcept {
+			
+				return i;
+			
+			}
+			
+			
+			/**
 			 *	Retrieves the integer this safe integer represents
 			 *	safely converted to an integer of another type.
 			 *
@@ -729,7 +742,7 @@ namespace Safe {
 			 *	\return
 			 *		The integer.
 			 */
-			template <typename T=IntegerType>
+			template <typename T>
 			T Get () const noexcept(noexcept(Cast<T>(std::declval<IntegerType>()))) {
 			
 				return Cast<T>(i);
