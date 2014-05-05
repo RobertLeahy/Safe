@@ -44,6 +44,14 @@ T Construct (Args &&... args) noexcept(std::is_nothrow_constructible<T,Args...>:
 }
 
 
+template <typename To, typename From>
+To Convert (From && from) noexcept(std::is_nothrow_constructible<To,From>::value) {
+
+	return To(std::forward<From>(from));
+
+}
+
+
 template <typename T>
 std::size_t Hash (T && obj) noexcept(noexcept(std::hash<typename std::decay<T>::type>{}(std::forward<T>(obj)))) {
 
@@ -1215,7 +1223,7 @@ SCENARIO("Safe integers may be converted to integers of any type") {
 		
 			THEN("An exception is thrown") {
 			
-				REQUIRE_THROWS_AS(static_cast<stype>(i),std::overflow_error);
+				REQUIRE_THROWS_AS(Convert<stype>(i),std::overflow_error);
 				REQUIRE_THROWS_AS(i.Get<stype>(),std::overflow_error);
 			
 			}
@@ -1287,7 +1295,7 @@ SCENARIO("Safe integers may be converted to integers of any type") {
 			
 			THEN("An exception is thrown") {
 			
-				REQUIRE_THROWS_AS(static_cast<utype>(i),std::overflow_error);
+				REQUIRE_THROWS_AS(Convert<utype>(i),std::overflow_error);
 				REQUIRE_THROWS_AS(i.Get<utype>(),std::overflow_error);
 			
 			}
@@ -1473,7 +1481,7 @@ SCENARIO("Safe integers may be converted to integers of any type") {
 			
 			THEN("An exception is thrown") {
 			
-				REQUIRE_THROWS_AS(static_cast<type>(i),std::overflow_error);
+				REQUIRE_THROWS_AS(Convert<type>(i),std::overflow_error);
 				REQUIRE_THROWS_AS(i.Get<type>(),std::overflow_error);
 			
 			}
@@ -1521,7 +1529,7 @@ SCENARIO("Safe integers may be converted to integers of any type") {
 			
 			THEN("An exception is thrown") {
 			
-				REQUIRE_THROWS_AS(static_cast<type>(i),std::overflow_error);
+				REQUIRE_THROWS_AS(Convert<type>(i),std::overflow_error);
 				REQUIRE_THROWS_AS(i.Get<type>(),std::overflow_error);
 			
 			}
@@ -1567,7 +1575,7 @@ SCENARIO("Safe integers may be converted to integers of any type") {
 			
 			THEN("An exception is thrown") {
 			
-				REQUIRE_THROWS_AS(static_cast<type>(i),std::overflow_error);
+				REQUIRE_THROWS_AS(Convert<type>(i),std::overflow_error);
 				REQUIRE_THROWS_AS(i.Get<type>(),std::overflow_error);
 			
 			}
@@ -1593,7 +1601,7 @@ SCENARIO("Safe integers may be converted to integers of any type") {
 			
 			THEN("An exception is thrown") {
 			
-				REQUIRE_THROWS_AS(static_cast<type>(i),std::overflow_error);
+				REQUIRE_THROWS_AS(Convert<type>(i),std::overflow_error);
 				REQUIRE_THROWS_AS(i.Get<type>(),std::overflow_error);
 			
 			}
@@ -1626,7 +1634,7 @@ SCENARIO("Safe integers may be converted to integers of any type") {
 			
 			THEN("The conversion is successful") {
 			
-				CHECK((static_cast<type>(i)==i));
+				CHECK((Convert<type>(i)==i));
 				CHECK((i.Get<type>()==i));
 				
 			}
@@ -1639,7 +1647,7 @@ SCENARIO("Safe integers may be converted to integers of any type") {
 			
 			THEN("An exception is thrown") {
 			
-				REQUIRE_THROWS_AS(static_cast<type>(i),std::overflow_error);
+				REQUIRE_THROWS_AS(Convert<type>(i),std::overflow_error);
 				REQUIRE_THROWS_AS(i.Get<type>(),std::overflow_error);
 			
 			}
@@ -1686,7 +1694,7 @@ SCENARIO("Safe integers may be converted to integers of any type") {
 			
 			THEN("An exception is thrown") {
 			
-				REQUIRE_THROWS_AS(static_cast<type>(i),std::overflow_error);
+				REQUIRE_THROWS_AS(Convert<type>(i),std::overflow_error);
 				REQUIRE_THROWS_AS(i.Get<type>(),std::overflow_error);
 			
 			}
@@ -1699,7 +1707,7 @@ SCENARIO("Safe integers may be converted to integers of any type") {
 			
 			THEN("An exception is thrown") {
 			
-				REQUIRE_THROWS_AS(static_cast<type>(i),std::overflow_error);
+				REQUIRE_THROWS_AS(Convert<type>(i),std::overflow_error);
 				REQUIRE_THROWS_AS(i.Get<type>(),std::overflow_error);
 			
 			}
