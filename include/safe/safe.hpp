@@ -694,7 +694,7 @@ namespace Safe {
 			 *	\return
 			 *		The integer.
 			 */
-			explicit constexpr operator IntegerType () const noexcept {
+			constexpr operator IntegerType () const noexcept {
 			
 				return i;
 			
@@ -712,7 +712,7 @@ namespace Safe {
 			 *		The integer.
 			 */
 			template <typename T>
-			explicit operator T () const noexcept(noexcept(Cast<T>(std::declval<IntegerType>()))) {
+			operator T () const noexcept(noexcept(Cast<T>(std::declval<IntegerType>()))) {
 			
 				return Cast<T>(i);
 			
