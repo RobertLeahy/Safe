@@ -61,6 +61,14 @@ std::size_t Hash (T && obj) noexcept(noexcept(std::hash<typename std::decay<T>::
 }
 
 
+template <typename B, typename A>
+constexpr bool Same (const A &) noexcept {
+
+	return std::is_same<A,B>::value;
+
+}
+
+
 SCENARIO("Default constructed safe integers have a value of zero") {
 
 	GIVEN("A default constructed safe integer of signed type") {
@@ -1079,6 +1087,223 @@ SCENARIO("Safe integers may be constructed from safe integers of any type") {
 	
 	}
 	
+}
+
+
+SCENARIO("The signedness of safe integers may be changed") {
+
+	WHEN("A safe integer of unsigned type is converted to unsigned") {
+	
+		typedef Integer<unsigned int> type;
+		
+		AND_WHEN("The safe integer is zero") {
+		
+			type i;
+			
+			THEN("The conversion is successful") {
+			
+				auto c=i.MakeUnsigned();
+				CHECK((c==i));
+				CHECK(Same<type>(c));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The safe integer is a small positive value") {
+		
+			type i(1);
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((i.MakeUnsigned()==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The safe integer is the largest value") {
+		
+			type i(std::numeric_limits<type>::max());
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((i.MakeUnsigned()==i));
+			
+			}
+		
+		}
+	
+	}
+	
+	WHEN("A safe integer of signed type is converted to signed") {
+	
+		typedef Integer<int> type;
+		
+		AND_WHEN("The safe integer is zero") {
+		
+			type i;
+			
+			THEN("The conversion is successful") {
+			
+				auto c=i.MakeSigned();
+				CHECK((c==i));
+				CHECK(Same<type>(c));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The safe integer is a small positive value") {
+		
+			type i(1);
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((i.MakeSigned()==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The safe integer is the largest value") {
+		
+			type i(std::numeric_limits<type>::max());
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((i.MakeSigned()==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The safe integer is a negative value") {
+		
+			type i(-1);
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((i.MakeSigned()==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The safe integer is the smallest value") {
+		
+			type i(std::numeric_limits<type>::min());
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((i.MakeSigned()==i));
+			
+			}
+		
+		}
+	
+	}
+
+	WHEN("A safe integer of unsigned type is converted to signed") {
+	
+		typedef Integer<unsigned int> type;
+	
+		AND_WHEN("The safe integer is zero") {
+		
+			type i;
+			
+			THEN("The conversion is successful") {
+			
+				auto c=i.MakeSigned();
+				CHECK((c==i));
+				CHECK(Same<Integer<int>>(c));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The safe integer is a small positive value") {
+		
+			type i(1);
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((i.MakeSigned()==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The safe integer is the largest value") {
+		
+			type i(std::numeric_limits<type>::max());
+			
+			THEN("An exception is thrown") {
+			
+				REQUIRE_THROWS_AS(i.MakeSigned(),std::overflow_error);
+			
+			}
+		
+		}
+	
+	}
+	
+	WHEN("A safe integer of signed type is converted to unsigned") {
+	
+		typedef Integer<int> type;
+		
+		AND_WHEN("The safe integer is zero") {
+		
+			type i;
+			
+			THEN("The conversion is successful") {
+			
+				auto c=i.MakeUnsigned();
+				CHECK((c==i));
+				CHECK(Same<Integer<unsigned int>>(c));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The safe integer is a small positive value") {
+		
+			type i(1);
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((i.MakeUnsigned()==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The safe integer is the largest value") {
+		
+			type i(std::numeric_limits<type>::max());
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((i.MakeUnsigned()==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The safe integer is a negative value") {
+		
+			type i(-1);
+			
+			THEN("An exception is thrown") {
+			
+				REQUIRE_THROWS_AS(i.MakeUnsigned(),std::overflow_error);
+			
+			}
+		
+		}
+	
+	}
+
 }
 
 
