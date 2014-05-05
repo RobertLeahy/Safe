@@ -801,6 +801,26 @@ namespace Safe {
 	};
 	
 	
+	/**
+	 *	Adds \em a and \em b, and assigns the result of the
+	 *	addition to \em a.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em a.
+	 *	\tparam B
+	 *		The type of \em b.
+	 *
+	 *	\param [in,out] a
+	 *		The safe integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		A reference to \em a.
+	 */
 	template <typename A, typename B>
 	Integer<A> & operator += (Integer<A> & a, B b) {
 	
@@ -809,6 +829,26 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Adds \em a and \em b, and assigns the result of the
+	 *	addition to \em a.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em a.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in,out] a
+	 *		The safe integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		A reference to \em a.
+	 */
 	template <typename A, typename B>
 	Integer<A> & operator += (Integer<A> & a, Integer<B> b) {
 	
@@ -817,6 +857,26 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Adds \em a and \em b, and assigns the result of the
+	 *	addition to \em a.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The type of \em a.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in,out] a
+	 *		The integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		A reference to \em a.
+	 */
 	template <typename A, typename B>
 	A & operator += (A & a, Integer<B> b) {
 	
@@ -825,6 +885,25 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Adds \em a and \em b.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em a.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The safe integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		The result.
+	 */
 	template <typename A, typename B>
 	Integer<A> operator + (Integer<A> a, Integer<B> b) {
 	
@@ -833,6 +912,25 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Adds \em a and \em b.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em a.
+	 *	\tparam B
+	 *		The type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The safe integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		The result.
+	 */
 	template <typename A, typename B>
 	Integer<A> operator + (Integer<A> a, B b) {
 	
@@ -841,6 +939,25 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Adds \em a and \em b.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The type of \em a.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		The result.
+	 */
 	template <typename A, typename B>
 	Integer<A> operator + (A a, Integer<B> b) {
 	
@@ -849,6 +966,18 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Increments a safe integer.
+	 *
+	 *	\tparam T
+	 *		The integer type of the safe integer.
+	 *
+	 *	\param [in,out] i
+	 *		The safe integer.
+	 *
+	 *	\return
+	 *		The safe integer.
+	 */
 	template <typename T>
 	Integer<T> & operator ++ (Integer<T> & i) {
 	
@@ -857,6 +986,19 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Increments a safe integer.
+	 *
+	 *	\tparam T
+	 *		The integer type of the safe integer.
+	 *
+	 *	\param [in,out] i
+	 *		The safe integer.
+	 *
+	 *	\return
+	 *		A copy of the safe integer before it was
+	 *		incremented.
+	 */
 	template <typename T>
 	Integer<T> operator ++ (Integer<T> & i, int) {
 	
@@ -869,6 +1011,26 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Subtracts \em a and \em b, and assigns the result of the
+	 *	subtraction to \em a.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em a.
+	 *	\tparam B
+	 *		The type of \em b.
+	 *
+	 *	\param [in,out] a
+	 *		The safe integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		A reference to \em a.
+	 */
 	template <typename A, typename B>
 	Integer<A> & operator -= (Integer<A> & a, B b) {
 	
@@ -877,6 +1039,26 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Subtracts \em a and \em b, and assigns the result of the
+	 *	subtraction to \em a.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em a.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in,out] a
+	 *		The safe integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		A reference to \em a.
+	 */
 	template <typename A, typename B>
 	Integer<A> & operator -= (Integer<A> & a, Integer<B> b) {
 	
@@ -885,6 +1067,26 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Subtracts \em a and \em b, and assigns the result of the
+	 *	subtraction to \em a.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The type of \em a.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in,out] a
+	 *		The integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		A reference to \em a.
+	 */
 	template <typename A, typename B>
 	A & operator -= (A & a, Integer<B> b) {
 	
@@ -893,6 +1095,25 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Subtracts \em a and \em b.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em a.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The safe integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		The result.
+	 */
 	template <typename A, typename B>
 	Integer<A> operator - (Integer<A> a, Integer<B> b) {
 	
@@ -901,6 +1122,25 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Subtracts \em a and \em b.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em a.
+	 *	\tparam B
+	 *		The type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The safe integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		The result.
+	 */
 	template <typename A, typename B>
 	Integer<A> operator - (Integer<A> a, B b) {
 	
@@ -909,6 +1149,25 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Subtracts \em a and \em b.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The type of \em a.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		The result.
+	 */
 	template <typename A, typename B>
 	Integer<A> operator - (A a, Integer<B> b) {
 	
@@ -917,6 +1176,18 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Decrements a safe integer.
+	 *
+	 *	\tparam T
+	 *		The integer type of the safe integer.
+	 *
+	 *	\param [in,out] i
+	 *		The safe integer.
+	 *
+	 *	\return
+	 *		The safe integer.
+	 */
 	template <typename T>
 	Integer<T> & operator -- (Integer<T> & i) {
 	
@@ -925,6 +1196,19 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Decrements a safe integer.
+	 *
+	 *	\tparam T
+	 *		The integer type of the safe integer.
+	 *
+	 *	\param [in,out] i
+	 *		The safe integer.
+	 *
+	 *	\return
+	 *		A copy of the safe integer before it was
+	 *		decremented.
+	 */
 	template <typename T>
 	Integer<T> operator -- (Integer<T> & i, int) {
 	
@@ -937,6 +1221,26 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Multiplies \em a and \em b, and assigns the result of the
+	 *	multiplication to \em a.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em a.
+	 *	\tparam B
+	 *		The type of \em b.
+	 *
+	 *	\param [in,out] a
+	 *		The safe integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		A reference to \em a.
+	 */
 	template <typename A, typename B>
 	Integer<A> & operator *= (Integer<A> & a, B b) {
 	
@@ -945,6 +1249,26 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Multiplies \em a and \em b, and assigns the result of the
+	 *	multiplication to \em a.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em a.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in,out] a
+	 *		The safe integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		A reference to \em a.
+	 */
 	template <typename A, typename B>
 	Integer<A> & operator *= (Integer<A> & a, Integer<B> b) {
 	
@@ -953,6 +1277,26 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Multiplies \em a and \em b, and assigns the result of the
+	 *	multiplication to \em a.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The type of \em a.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in,out] a
+	 *		The integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		A reference to \em a.
+	 */
 	template <typename A, typename B>
 	A & operator *= (A & a, Integer<B> b) {
 	
@@ -961,6 +1305,25 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Multiplies \em a and \em b.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em a.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The safe integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		The result.
+	 */
 	template <typename A, typename B>
 	Integer<A> operator * (Integer<A> a, Integer<B> b) {
 	
@@ -969,6 +1332,25 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Multiplies \em a and \em b.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em a.
+	 *	\tparam B
+	 *		The type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The safe integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		The result.
+	 */
 	template <typename A, typename B>
 	Integer<A> operator * (Integer<A> a, B b) {
 	
@@ -977,6 +1359,25 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Multiplies \em a and \em b.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The type of \em a.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		The result.
+	 */
 	template <typename A, typename B>
 	Integer<A> operator * (A a, Integer<B> b) {
 	
@@ -985,6 +1386,26 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Divides \em a by \em b, and assigns the result of the
+	 *	division to \em a.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em a.
+	 *	\tparam B
+	 *		The type of \em b.
+	 *
+	 *	\param [in,out] a
+	 *		The safe integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		A reference to \em a.
+	 */
 	template <typename A, typename B>
 	Integer<A> & operator /= (Integer<A> & a, B b) {
 	
@@ -993,6 +1414,26 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Divides \em a by \em b, and assigns the result of the
+	 *	division to \em a.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em a.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in,out] a
+	 *		The safe integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		A reference to \em a.
+	 */
 	template <typename A, typename B>
 	Integer<A> & operator /= (Integer<A> & a, Integer<B> b) {
 	
@@ -1001,6 +1442,26 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Divides \em a by \em b, and assigns the result of the
+	 *	division to \em a.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The type of \em a.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in,out] a
+	 *		The integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		A reference to \em a.
+	 */
 	template <typename A, typename B>
 	A & operator /= (A & a, Integer<B> b) {
 	
@@ -1009,6 +1470,25 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Divides \em a by \em b.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em a.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The safe integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		The result.
+	 */
 	template <typename A, typename B>
 	Integer<A> operator / (Integer<A> a, Integer<B> b) {
 	
@@ -1017,6 +1497,25 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Divides \em a by \em b.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em a.
+	 *	\tparam B
+	 *		The type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The safe integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		The result.
+	 */
 	template <typename A, typename B>
 	Integer<A> operator / (Integer<A> a, B b) {
 	
@@ -1025,6 +1524,25 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Divides \em a by \em b.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The type of \em a.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		The result.
+	 */
 	template <typename A, typename B>
 	Integer<A> operator / (A a, Integer<B> b) {
 	
@@ -1033,6 +1551,25 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Divides \em a by \em b, and assigns the remainder to \em a.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em a.
+	 *	\tparam B
+	 *		The type of \em b.
+	 *
+	 *	\param [in,out] a
+	 *		The safe integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		A reference to \em a.
+	 */
 	template <typename A, typename B>
 	Integer<A> & operator %= (Integer<A> & a, B b) {
 	
@@ -1041,6 +1578,25 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Divides \em a by \em b, and assigns the remainder to \em a.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em a.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in,out] a
+	 *		The safe integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		A reference to \em a.
+	 */
 	template <typename A, typename B>
 	Integer<A> & operator %= (Integer<A> & a, Integer<B> b) {
 	
@@ -1049,6 +1605,25 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Divides \em a by \em b, and assigns the remainder to \em a.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The type of \em a.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in,out] a
+	 *		The integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		A reference to \em a.
+	 */
 	template <typename A, typename B>
 	A & operator %= (A & a, Integer<B> b) {
 	
@@ -1057,6 +1632,25 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Obtains the remainder of division of \em a by \em b.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em a.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The safe integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		The result.
+	 */
 	template <typename A, typename B>
 	Integer<A> operator % (Integer<A> a, Integer<B> b) {
 	
@@ -1065,6 +1659,25 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Obtains the remainder of division of \em a by \em b.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em a.
+	 *	\tparam B
+	 *		The type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The safe integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		The result.
+	 */
 	template <typename A, typename B>
 	Integer<A> operator % (Integer<A> a, B b) {
 	
@@ -1073,6 +1686,25 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Obtains the remainder of division of \em a by \em b.
+	 *
+	 *	Note that \em b is always converted to type \em A before
+	 *	the operation takes place.
+	 *
+	 *	\tparam A
+	 *		The type of \em a.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The integer which is on the left hand side.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side.
+	 *
+	 *	\return
+	 *		The result.
+	 */
 	template <typename A, typename B>
 	Integer<A> operator % (A a, Integer<B> b) {
 	
@@ -1081,6 +1713,29 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Determines whether some safe integer \em a is equal to another
+	 *	safe integer \em b.
+	 *
+	 *	Comparing integers of different width and signedness
+	 *	using this operator results in well-defined and mathematically
+	 *	correct results.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em b.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The safe integer which is on the left hand side
+	 *		of the comparison.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side
+	 *		of the comparison.
+	 *
+	 *	\return
+	 *		\em true if \em a is equal to \em b, \em false otherwise. 
+	 */
 	template <typename A, typename B>
 	constexpr bool operator == (Integer<A> a, Integer<B> b) noexcept {
 	
@@ -1089,6 +1744,29 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Determines whether some safe integer \em a is equal to
+	 *	some integer \em b.
+	 *
+	 *	Comparing integers of different width and signedness
+	 *	using this operator results in well-defined and mathematically
+	 *	correct results.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em b.
+	 *	\tparam B
+	 *		The type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The safe integer which is on the left hand side of
+	 *		the comparison.
+	 *	\param [in] b
+	 *		The integer which is on the right hand side of the
+	 *		comparison.
+	 *
+	 *	\return
+	 *		\em true if \em a is equal to \em b, \em false otherwise. 
+	 */
 	template <typename A, typename B>
 	constexpr bool operator == (Integer<A> a, B b) noexcept {
 	
@@ -1097,6 +1775,29 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Determines whether some integer \em a is equal to
+	 *	some safe integer \em b.
+	 *
+	 *	Comparing integers of different width and signedness
+	 *	using this operator results in well-defined and mathematically
+	 *	correct results.
+	 *
+	 *	\tparam A
+	 *		The type of \em a.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The integer which is on the left hand side of
+	 *		the comparison.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side
+	 *		of the comparison.
+	 *
+	 *	\return
+	 *		\em true if \em a is equal to \em b, \em false otherwise. 
+	 */
 	template <typename A, typename B>
 	constexpr bool operator == (A a, Integer<B> b) noexcept {
 	
@@ -1105,6 +1806,29 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Determines whether some safe integer \em a is not equal to another
+	 *	safe integer \em b.
+	 *
+	 *	Comparing integers of different width and signedness
+	 *	using this operator results in well-defined and mathematically
+	 *	correct results.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em b.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The safe integer which is on the left hand side
+	 *		of the comparison.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side
+	 *		of the comparison.
+	 *
+	 *	\return
+	 *		\em true if \em a is not equal to \em b, \em false otherwise. 
+	 */
 	template <typename A, typename B>
 	constexpr bool operator != (Integer<A> a, Integer<B> b) noexcept {
 	
@@ -1113,6 +1837,29 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Determines whether some safe integer \em a is not equal to
+	 *	some integer \em b.
+	 *
+	 *	Comparing integers of different width and signedness
+	 *	using this operator results in well-defined and mathematically
+	 *	correct results.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em b.
+	 *	\tparam B
+	 *		The type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The safe integer which is on the left hand side of
+	 *		the comparison.
+	 *	\param [in] b
+	 *		The integer which is on the right hand side of the
+	 *		comparison.
+	 *
+	 *	\return
+	 *		\em true if \em a is not equal to \em b, \em false otherwise. 
+	 */
 	template <typename A, typename B>
 	constexpr bool operator != (Integer<A> a, B b) noexcept {
 	
@@ -1121,6 +1868,29 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Determines whether some integer \em a is not equal to
+	 *	some safe integer \em b.
+	 *
+	 *	Comparing integers of different width and signedness
+	 *	using this operator results in well-defined and mathematically
+	 *	correct results.
+	 *
+	 *	\tparam A
+	 *		The type of \em a.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The integer which is on the left hand side of
+	 *		the comparison.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side
+	 *		of the comparison.
+	 *
+	 *	\return
+	 *		\em true if \em a is not equal to \em b, \em false otherwise. 
+	 */
 	template <typename A, typename B>
 	constexpr bool operator != (A a, Integer<B> b) noexcept {
 	
@@ -1129,6 +1899,29 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Determines whether some safe integer \em a is greater than
+	 *	another safe integer \em b.
+	 *
+	 *	Comparing integers of different width and signedness
+	 *	using this operator results in well-defined and mathematically
+	 *	correct results.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em b.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The safe integer which is on the left hand side
+	 *		of the comparison.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side
+	 *		of the comparison.
+	 *
+	 *	\return
+	 *		\em true if \em a is greater than \em b, \em false otherwise. 
+	 */
 	template <typename A, typename B>
 	constexpr bool operator > (Integer<A> a, Integer<B> b) noexcept {
 	
@@ -1137,6 +1930,29 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Determines whether some safe integer \em a is greater than
+	 *	some integer \em b.
+	 *
+	 *	Comparing integers of different width and signedness
+	 *	using this operator results in well-defined and mathematically
+	 *	correct results.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em b.
+	 *	\tparam B
+	 *		The type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The safe integer which is on the left hand side of
+	 *		the comparison.
+	 *	\param [in] b
+	 *		The integer which is on the right hand side of the
+	 *		comparison.
+	 *
+	 *	\return
+	 *		\em true if \em a is greater than \em b, \em false otherwise. 
+	 */
 	template <typename A, typename B>
 	constexpr bool operator > (Integer<A> a, B b) noexcept {
 	
@@ -1145,6 +1961,29 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Determines whether some integer \em a is greater than
+	 *	some safe integer \em b.
+	 *
+	 *	Comparing integers of different width and signedness
+	 *	using this operator results in well-defined and mathematically
+	 *	correct results.
+	 *
+	 *	\tparam A
+	 *		The type of \em a.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The integer which is on the left hand side of
+	 *		the comparison.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side
+	 *		of the comparison.
+	 *
+	 *	\return
+	 *		\em true if \em a is greater than \em b, \em false otherwise. 
+	 */
 	template <typename A, typename B>
 	constexpr bool operator > (A a, Integer<B> b) noexcept {
 	
@@ -1153,6 +1992,30 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Determines whether some safe integer \em a is greater than
+	 *	or equal to another safe integer \em b.
+	 *
+	 *	Comparing integers of different width and signedness
+	 *	using this operator results in well-defined and mathematically
+	 *	correct results.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em b.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The safe integer which is on the left hand side
+	 *		of the comparison.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side
+	 *		of the comparison.
+	 *
+	 *	\return
+	 *		\em true if \em a is greater than or equal to \em b, \em false
+	 *		otherwise. 
+	 */
 	template <typename A, typename B>
 	constexpr bool operator >= (Integer<A> a, Integer<B> b) noexcept {
 	
@@ -1161,6 +2024,30 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Determines whether some safe integer \em a is greater than
+	 *	or equal to some integer \em b.
+	 *
+	 *	Comparing integers of different width and signedness
+	 *	using this operator results in well-defined and mathematically
+	 *	correct results.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em b.
+	 *	\tparam B
+	 *		The type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The safe integer which is on the left hand side of
+	 *		the comparison.
+	 *	\param [in] b
+	 *		The integer which is on the right hand side of the
+	 *		comparison.
+	 *
+	 *	\return
+	 *		\em true if \em a is greater than or equal to \em b, \em false
+	 *		otherwise. 
+	 */
 	template <typename A, typename B>
 	constexpr bool operator >= (Integer<A> a, B b) noexcept {
 	
@@ -1169,6 +2056,30 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Determines whether some integer \em a is greater than
+	 *	or equal to some safe integer \em b.
+	 *
+	 *	Comparing integers of different width and signedness
+	 *	using this operator results in well-defined and mathematically
+	 *	correct results.
+	 *
+	 *	\tparam A
+	 *		The type of \em a.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The integer which is on the left hand side of
+	 *		the comparison.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side
+	 *		of the comparison.
+	 *
+	 *	\return
+	 *		\em true if \em a is greater than or equal to \em b, \em false
+	 *		otherwise. 
+	 */
 	template <typename A, typename B>
 	constexpr bool operator >= (A a, Integer<B> b) noexcept {
 	
@@ -1177,6 +2088,29 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Determines whether some safe integer \em a is less than
+	 *	another safe integer \em b.
+	 *
+	 *	Comparing integers of different width and signedness
+	 *	using this operator results in well-defined and mathematically
+	 *	correct results.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em b.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The safe integer which is on the left hand side
+	 *		of the comparison.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side
+	 *		of the comparison.
+	 *
+	 *	\return
+	 *		\em true if \em a is less than \em b, \em false otherwise. 
+	 */
 	template <typename A, typename B>
 	constexpr bool operator < (Integer<A> a, Integer<B> b) noexcept {
 	
@@ -1185,6 +2119,29 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Determines whether some safe integer \em a is less than
+	 *	some integer \em b.
+	 *
+	 *	Comparing integers of different width and signedness
+	 *	using this operator results in well-defined and mathematically
+	 *	correct results.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em b.
+	 *	\tparam B
+	 *		The type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The safe integer which is on the left hand side of
+	 *		the comparison.
+	 *	\param [in] b
+	 *		The integer which is on the right hand side of the
+	 *		comparison.
+	 *
+	 *	\return
+	 *		\em true if \em a is less than \em b, \em false otherwise. 
+	 */
 	template <typename A, typename B>
 	constexpr bool operator < (Integer<A> a, B b) noexcept {
 	
@@ -1193,6 +2150,29 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Determines whether some integer \em a is less than
+	 *	some safe integer \em b.
+	 *
+	 *	Comparing integers of different width and signedness
+	 *	using this operator results in well-defined and mathematically
+	 *	correct results.
+	 *
+	 *	\tparam A
+	 *		The type of \em a.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The integer which is on the left hand side of
+	 *		the comparison.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side
+	 *		of the comparison.
+	 *
+	 *	\return
+	 *		\em true if \em a is less than \em b, \em false otherwise. 
+	 */
 	template <typename A, typename B>
 	constexpr bool operator < (A a, Integer<B> b) noexcept {
 	
@@ -1201,30 +2181,114 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Determines whether some safe integer \em a is less than
+	 *	or equal to another safe integer \em b.
+	 *
+	 *	Comparing integers of different width and signedness
+	 *	using this operator results in well-defined and mathematically
+	 *	correct results.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em b.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The safe integer which is on the left hand side
+	 *		of the comparison.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side
+	 *		of the comparison.
+	 *
+	 *	\return
+	 *		\em true if \em a is less than or equal to \em b, \em false
+	 *		otherwise. 
+	 */
 	template <typename A, typename B>
-	bool operator <= (Integer<A> a, Integer<B> b) noexcept {
+	constexpr bool operator <= (Integer<A> a, Integer<B> b) noexcept {
 	
 		return Compare(a.Get(),b.Get())<=0;
 	
 	}
 	
 	
+	/**
+	 *	Determines whether some safe integer \em a is less than
+	 *	or equal to some integer \em b.
+	 *
+	 *	Comparing integers of different width and signedness
+	 *	using this operator results in well-defined and mathematically
+	 *	correct results.
+	 *
+	 *	\tparam A
+	 *		The integer type of \em b.
+	 *	\tparam B
+	 *		The type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The safe integer which is on the left hand side of
+	 *		the comparison.
+	 *	\param [in] b
+	 *		The integer which is on the right hand side of the
+	 *		comparison.
+	 *
+	 *	\return
+	 *		\em true if \em a is less than or equal to \em b, \em false
+	 *		otherwise. 
+	 */
 	template <typename A, typename B>
-	bool operator <= (Integer<A> a, B b) noexcept {
+	constexpr bool operator <= (Integer<A> a, B b) noexcept {
 	
 		return Compare(a.Get(),b)<=0;
 	
 	}
 	
 	
+	/**
+	 *	Determines whether some integer \em a is less than
+	 *	or equal to some safe integer \em b.
+	 *
+	 *	Comparing integers of different width and signedness
+	 *	using this operator results in well-defined and mathematically
+	 *	correct results.
+	 *
+	 *	\tparam A
+	 *		The type of \em a.
+	 *	\tparam B
+	 *		The integer type of \em b.
+	 *
+	 *	\param [in] a
+	 *		The integer which is on the left hand side of
+	 *		the comparison.
+	 *	\param [in] b
+	 *		The safe integer which is on the right hand side
+	 *		of the comparison.
+	 *
+	 *	\return
+	 *		\em true if \em a is less than or equal to \em b, \em false
+	 *		otherwise. 
+	 */
 	template <typename A, typename B>
-	bool operator <= (A a, Integer<B> b) noexcept {
+	constexpr bool operator <= (A a, Integer<B> b) noexcept {
 	
 		return Compare(a,b.Get())<=0;
 	
 	}
 	
 	
+	/**
+	 *	Applies unary plus to a safe integer.
+	 *
+	 *	\tparam T
+	 *		The integer type of the safe integer type.
+	 *
+	 *	\param [in] a
+	 *		The safe integer.
+	 *
+	 *	\return
+	 *		\em a.
+	 */
 	template <typename T>
 	constexpr Integer<T> operator + (Integer<T> a) noexcept {
 	
@@ -1233,6 +2297,23 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Applies unary minus to a safe integer.
+	 *
+	 *	This overload activates when the safe integer
+	 *	type-in-question is unsigned.  In this case
+	 *	an exception is thrown unless the safe
+	 *	integer-in-question is exactly zero.
+	 *
+	 *	\tparam T
+	 *		The integer type of the safe integer type.
+	 *
+	 *	\param [in] a
+	 *		The safe integer.
+	 *
+	 *	\return
+	 *		Zero.
+	 */
 	template <typename T>
 	typename std::enable_if<Integer<T>::Unsigned,Integer<T>>::type operator - (Integer<T> a) {
 	
@@ -1243,6 +2324,22 @@ namespace Safe {
 	}
 	
 	
+	/**
+	 *	Applies unary minus to a safe integer.
+	 *
+	 *	This overload activates when the safe integer
+	 *	type-in-question is signed.
+	 *
+	 *	\tparam T
+	 *		The integer type of the safe integer type.
+	 *
+	 *	\param [in] a
+	 *		The safe integer.
+	 *
+	 *	\return
+	 *		The result of multiplying \em a by negative
+	 *		one.
+	 */
 	template <typename T>
 	typename std::enable_if<Integer<T>::Signed,Integer<T>>::type operator - (Integer<T> a) {
 	
@@ -1331,9 +2428,84 @@ namespace std {
 	};
 	
 	
-	//	TODO: Implement fully
 	template <typename T>
-	class numeric_limits<Safe::Integer<T>> : public numeric_limits<T> {	};
+	class numeric_limits<Safe::Integer<T>> : public numeric_limits<T> {
+	
+	
+		private:
+		
+		
+			typedef Safe::Integer<T> type;
+			typedef numeric_limits<T> base;
+	
+	
+		public:
+		
+		
+			static constexpr type min () noexcept {
+			
+				return base::min();
+			
+			}
+			
+			
+			static constexpr type lowest () noexcept {
+			
+				return base::lowest();
+			
+			}
+			
+			
+			static constexpr type max () noexcept {
+			
+				return base::max();
+			
+			}
+			
+			
+			static constexpr type epsilon () noexcept {
+			
+				return base::epsilon();
+			
+			}
+			
+			
+			static constexpr type round_error () noexcept {
+			
+				return base::round_error();
+			
+			}
+			
+			
+			static constexpr type infinity () noexcept {
+			
+				return base::infinity();
+			
+			}
+			
+			
+			static constexpr type quiet_NaN () noexcept {
+			
+				return base::quiet_NaN();
+			
+			}
+			
+			
+			static constexpr type signaling_NaN () noexcept {
+			
+				return base::signaling_NaN();
+			
+			}
+			
+			
+			static constexpr type denorm_min () noexcept {
+			
+				return base::denorm_min();
+			
+			}
+	
+	
+	};
 	
 	
 	template <typename T>
