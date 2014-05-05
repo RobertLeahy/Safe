@@ -6,14 +6,4 @@ include/optional
 !/build.bat
 /*.mk
 /Makefile
-src/test/*
-!src/test/main.cpp
-!src/test/main_old.cpp
-!src/test/catch.*
-!src/test/regex/
-UCD
-src/data/data.cpp
-UCD.zip
-UCA
-src/data/collation.cpp
 include/catch.hpp
