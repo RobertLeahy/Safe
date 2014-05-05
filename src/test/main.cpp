@@ -2351,3 +2351,127 @@ SCENARIO("Safe integers may be hashed") {
 	}
 
 }
+
+
+SCENARIO("The signedness of safe integer types may be determined") {
+
+	GIVEN("An unsigned safe integer type") {
+	
+		typedef Integer<unsigned int> type;
+		
+		THEN("It is identified as being unsigned") {
+		
+			CHECK(std::is_unsigned<type>::value);
+			CHECK(type::Unsigned);
+		
+		}
+		
+		THEN("It is not identified as being signed") {
+		
+			CHECK(!std::is_signed<type>::value);
+			CHECK(!type::Signed);
+		
+		}
+	
+	}
+	
+	GIVEN("A signed safe integer type") {
+	
+		typedef Integer<int> type;
+		
+		THEN("It is not identified as being unsigned") {
+		
+			CHECK(!std::is_unsigned<type>::value);
+			CHECK(!type::Unsigned);
+		
+		}
+		
+		THEN("It is identified as being signed") {
+		
+			CHECK(std::is_signed<type>::value);
+			CHECK(type::Signed);
+		
+		}
+	
+	}
+
+}
+
+
+SCENARIO("Safe integer types may be converted to signed or unsigned") {
+
+	GIVEN("An unsigned safe integer type") {
+	
+		typedef Integer<unsigned int> type;
+		
+		THEN("Its unsigned type is the same as its type") {
+		
+			auto value=std::is_same<type::Type,type::UnsignedType>::value;
+			CHECK(value);
+		
+		}
+		
+		THEN("Converting it to unsigned yields the same type") {
+		
+			auto value=std::is_same<type,std::make_unsigned<type>::type>::value;
+			CHECK(value);
+		
+		}
+		
+		GIVEN("A safe integer of equivalent signed type") {
+		
+			typedef Integer<int> stype;
+			
+			THEN("The unsigned type of the former is the same as the unsigned type of the latter") {
+			
+				auto value=std::is_same<type::UnsignedType,stype::UnsignedType>::value;
+				CHECK(value);
+			
+			}
+			
+			THEN("The signed type of the former is the same as the signed type of the latter") {
+			
+				auto value=std::is_same<type::SignedType,stype::SignedType>::value;
+				CHECK(value);
+			
+			}
+			
+			THEN("Converting the former to signed yields the latter") {
+			
+				auto value=std::is_same<std::make_signed<type>::type,stype>::value;
+				CHECK(value);
+			
+			}
+			
+			THEN("Converting the latter to unsigned yields the former") {
+			
+				auto value=std::is_same<std::make_unsigned<stype>::type,type>::value;
+				CHECK(value);
+			
+			}
+		
+		}
+	
+	}
+	
+	GIVEN("A signed safe integer type") {
+	
+		typedef Integer<int> type;
+		
+		THEN("Its signed type is the same as its type") {
+		
+			auto value=std::is_same<type::Type,type::SignedType>::value;
+			CHECK(value);
+		
+		}
+		
+		THEN("Converting it to signed yields the same type") {
+		
+			auto value=std::is_same<type,std::make_signed<type>::type>::value;
+			CHECK(value);
+		
+		}
+	
+	}
+
+}
