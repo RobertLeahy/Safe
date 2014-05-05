@@ -632,92 +632,89 @@ SCENARIO("Safe integers may be constructed from integers of any type") {
 }
 
 
-SCENARIO("Safe integers may be safely cast to integers of any type") {
+SCENARIO("Safe integers may be constructed from safe integers of any type") {
 
-	WHEN("A safe integer of unsigned type is cast to an integer of equal width and of signed type") {
-	
-		typedef Integer<unsigned int> utype;
-		typedef int stype;
-		
-		AND_WHEN("The safe integer is zero") {
-		
-			utype i(0);
-			
-			THEN("The integer is retrieved successfully") {
-			
-				CHECK((static_cast<stype>(i)==i));
-			
-			}
-		
-		}
-		
-		AND_WHEN("The safe integer is within range of the signed type") {
-		
-			utype i(1);
-			
-			THEN("The integer is retrieved successfully") {
-			
-				CHECK((static_cast<stype>(i)==i));
-			
-			}
-		
-		}
-		
-		AND_WHEN("The safe integer is outside the range of the signed type") {
-		
-			utype i(static_cast<utype::Type>(std::numeric_limits<stype>::max())+1);
-			
-			THEN("An exception is thrown") {
-			
-				REQUIRE_THROWS_AS(i.Get<stype>(),std::overflow_error);
-			
-			}
-		
-		}
-	
-	}
+	//	EQUAL WIDTH
 
-}
-
-
-SCENARIO("Safe integers may be safely converted to safe integers of other types") {
-
-	WHEN("A safe integer of unsigned type is cast to a safe integer of type of equal width and of signed type") {
+	WHEN("A safe integer of unsigned type is constructed from an integer of equal width and of signed type") {
 	
 		typedef Integer<unsigned int> utype;
 		typedef Integer<int> stype;
-			
-		AND_WHEN("The safe integer is zero") {
+	
+		AND_WHEN("The integer is negative") {
 		
-			utype i(0);
-			
-			THEN("No exception is thrown") {
-			
-				REQUIRE_NOTHROW(i.Get<stype>());
-			
-			}
+			stype i=-1;
 		
-		}
-		
-		AND_WHEN("The safe integer is within range of the signed type") {
-		
-			utype i(1);
+			THEN("An exception is thrown") {
 			
-			THEN("No exception is thrown") {
-			
-				REQUIRE_NOTHROW(i.Get<stype>());
+				REQUIRE_THROWS_AS(Construct<utype>(i),std::overflow_error);
 			
 			}
 		
 		}
 		
-		AND_WHEN("The safe integer is outside the range of the signed type") {
+		AND_WHEN("The integer is positive") {
 		
-			utype i(static_cast<utype::Type>(std::numeric_limits<stype::Type>::max())+1);
+			stype i=1;
+		
+			THEN("The safe integer is constructed successfully") {
+			
+				CHECK((utype(i)==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is zero") {
+		
+			stype i=0;
+			
+			THEN("The safe integer is constructed successfully") {
+			
+				CHECK((utype(i)==i));
+			
+			}
+		
+		}
+	
+	}
+	
+	WHEN("A safe integer of signed type is constructed from an integer of equal width and of unsigned type") {
+	
+		typedef Integer<int> stype;
+		typedef Integer<unsigned int> utype;
+		
+		AND_WHEN("The integer is zero") {
+		
+			utype i=0;
+			
+			THEN("The safe integer is constructed successfully") {
+			
+				CHECK((stype(i)==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is within the range of the signed type") {
+		
+			utype i=1;
+			
+			THEN("The safe integer is constructed successfully") {
+			
+				CHECK((stype(i)==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is beyond the range of the signed type") {
+		
+			utype i=std::numeric_limits<utype>::max();
 			
 			THEN("An exception is thrown") {
 			
-				REQUIRE_THROWS_AS(i.Get<stype>(),std::overflow_error);
+				REQUIRE_THROWS_AS(Construct<stype>(i),std::overflow_error);
 			
 			}
 		
@@ -725,6 +722,992 @@ SCENARIO("Safe integers may be safely converted to safe integers of other types"
 	
 	}
 
+	//	NARROWING
+	
+	WHEN("A safe integer of unsigned type is constructed from an unsigned integer of greater width") {
+	
+		typedef Integer<std::uint8_t> stype;
+		typedef Integer<std::uint16_t> wtype;
+		
+		AND_WHEN("The integer is zero") {
+		
+			wtype i=0;
+			
+			THEN("The safe integer is constructed successfully") {
+			
+				CHECK((stype(i)==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is within range") {
+		
+			wtype i=1;
+			
+			THEN("The safe integer is constructed successfully") {
+			
+				CHECK((stype(i)==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is out of range") {
+		
+			wtype i=static_cast<wtype>(std::numeric_limits<std::uint8_t>::max())+1;
+			
+			THEN("An exception is thrown") {
+			
+				REQUIRE_THROWS_AS(Construct<stype>(i),std::overflow_error);
+			
+			}
+			
+		}
+	
+	}
+	
+	WHEN("A safe integer of signed type is constructed from a signed integer of greater width") {
+	
+		typedef Integer<std::int8_t> stype;
+		typedef Integer<std::int16_t> wtype;
+		
+		AND_WHEN("The integer is zero") {
+		
+			wtype i=0;
+			
+			THEN("The safe integer is constructed successfully") {
+			
+				CHECK((stype(i)==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is within range") {
+		
+			wtype i=1;
+			
+			THEN("The safe integer is constructed successfully") {
+			
+				CHECK((stype(i)==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is too large") {
+		
+			wtype i=static_cast<wtype>(std::numeric_limits<std::int8_t>::max())+1;
+			
+			THEN("An exception is thrown") {
+			
+				REQUIRE_THROWS_AS(Construct<stype>(i),std::overflow_error);
+			
+			}
+			
+		}
+		
+		AND_WHEN("The integer is too small") {
+		
+			wtype i=static_cast<wtype>(std::numeric_limits<std::int8_t>::min())-1;
+			
+			THEN("An exception is thrown") {
+			
+				REQUIRE_THROWS_AS(Construct<stype>(i),std::overflow_error);
+			
+			}
+			
+		}
+	
+	}
+	
+	WHEN("A safe integer of unsigned type is constructed from a signed integer of greater width") {
+	
+		typedef Integer<std::int16_t> type;
+		typedef Integer<std::uint8_t> stype;
+		
+		AND_WHEN("The integer is zero") {
+		
+			type i=0;
+			
+			THEN("The safe integer is constructed successfully") {
+			
+				CHECK((stype(i)==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is small and positive") {
+		
+			type i=1;
+			
+			THEN("The safe integer is constructed successfully") {
+			
+				CHECK((stype(i)==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is large and positive") {
+		
+			type i=std::numeric_limits<type>::max();
+			
+			THEN("An exception is thrown") {
+			
+				REQUIRE_THROWS_AS(Construct<stype>(i),std::overflow_error);
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is negative") {
+		
+			type i=-1;
+			
+			THEN("An exception is thrown") {
+			
+				REQUIRE_THROWS_AS(Construct<stype>(i),std::overflow_error);
+			
+			}
+		
+		}
+	
+	}
+	
+	WHEN("A safe integer of signed type is constructed from an unsigned integer of greater width") {
+	
+		typedef Integer<std::uint16_t> type;
+		typedef Integer<std::int8_t> stype;
+		
+		AND_WHEN("The integer is zero") {
+		
+			type i=0;
+			
+			THEN("The safe integer is constructed successfully") {
+			
+				CHECK((stype(i)==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is small and positive") {
+		
+			type i=1;
+			
+			THEN("The safe integer is constructed successfully") {
+			
+				CHECK((stype(i)==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is large and positive") {
+		
+			type i=std::numeric_limits<type>::max();
+			
+			THEN("An exception is thrown") {
+			
+				REQUIRE_THROWS_AS(Construct<stype>(i),std::overflow_error);
+			
+			}
+		
+		}
+	
+	}
+	
+	//	WIDENING
+	
+	WHEN("A safe integer of unsigned type is constructed from an unsigned type of lesser width") {
+	
+		typedef Integer<std::uint16_t> stype;
+		typedef Integer<std::uint8_t> type;
+		
+		AND_WHEN("The integer is zero") {
+		
+			type i=0;
+			
+			THEN("The safe integer is constructed successfully") {
+			
+				CHECK((stype(i)==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is positive") {
+		
+			type i=std::numeric_limits<type>::max();
+			
+			THEN("The safe integer is constructed successfully") {
+			
+				CHECK((stype(i)==i));
+			
+			}
+		
+		}
+	
+	}
+	
+	WHEN("A safe integer of signed type is constructed from a signed type of lesser width") {
+	
+		typedef Integer<std::int16_t> stype;
+		typedef Integer<std::int8_t> type;
+		
+		AND_WHEN("The integer is zero") {
+		
+			type i=0;
+			
+			THEN("The safe integer is constructed successfully") {
+			
+				CHECK((stype(i)==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is positive") {
+		
+			type i=std::numeric_limits<type>::max();
+			
+			THEN("The safe integer is constructed successfully") {
+			
+				CHECK((stype(i)==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is negative") {
+		
+			type i=std::numeric_limits<type>::min();
+			
+			THEN("The safe integer is constructed successfully") {
+			
+				CHECK((stype(i)==i));
+			
+			}
+		
+		}
+	
+	}
+	
+	WHEN("A safe integer of unsigned type is constructed from a signed integer of lesser width") {
+	
+		typedef Integer<std::uint16_t> stype;
+		typedef Integer<std::int8_t> type;
+		
+		AND_WHEN("The integer is zero") {
+		
+			type i=0;
+			
+			THEN("The safe integer is constructed successfully") {
+			
+				CHECK((stype(i)==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is positive") {
+		
+			type i=std::numeric_limits<type>::max();
+			
+			THEN("The safe integer is constructed successfully") {
+			
+				CHECK((stype(i)==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is negative") {
+		
+			type i=std::numeric_limits<type>::min();
+			
+			THEN("An exception is thrown") {
+			
+				REQUIRE_THROWS_AS(Construct<stype>(i),std::overflow_error);
+			
+			}
+		
+		}
+	
+	}
+	
+	WHEN("A safe integer of signed type is constructed from an unsigned type of lesser width") {
+	
+		typedef Integer<std::int16_t> stype;
+		typedef Integer<std::uint8_t> type;
+		
+		AND_WHEN("The integer is zero") {
+		
+			type i=0;
+			
+			THEN("The safe integer is constructed successfully") {
+			
+				CHECK((stype(i)==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is positive") {
+		
+			type i=std::numeric_limits<type>::max();
+			
+			THEN("The safe integer is constructed successfully") {
+			
+				CHECK((stype(i)==i));
+			
+			}
+		
+		}
+	
+	}
+	
+}
+
+
+SCENARIO("Safe integers may be converted to integers of any type") {
+
+	//	EQUAL WIDTH
+
+	WHEN("A safe integer of unsigned type is converted to an integer of equal width and signedness") {
+	
+		typedef unsigned int type;
+		typedef Integer<type> stype;
+		
+		AND_WHEN("The integer is zero") {
+		
+			stype i;
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<type>(i)==i));
+				CHECK((i.Get()==i));
+				CHECK((i.Get<type>()==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is a small positive value") {
+		
+			stype i(1);
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<type>(i)==i));
+				CHECK((i.Get()==i));
+				CHECK((i.Get<type>()==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is the largest value") {
+		
+			stype i(std::numeric_limits<type>::max());
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<type>(i)==i));
+				CHECK((i.Get()==i));
+				CHECK((i.Get<type>()==i));
+			
+			}
+		
+		}
+	
+	}
+	
+	WHEN("A safe integer of signed type is converted to an integer of equal width and signedness") {
+	
+		typedef int type;
+		typedef Integer<type> stype;
+		
+		AND_WHEN("The integer is zero") {
+		
+			stype i;
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<type>(i)==i));
+				CHECK((i.Get()==i));
+				CHECK((i.Get<type>()==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is a small positive value") {
+		
+			stype i(1);
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<type>(i)==i));
+				CHECK((i.Get()==i));
+				CHECK((i.Get<type>()==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is the largest value") {
+		
+			stype i(std::numeric_limits<type>::max());
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<type>(i)==i));
+				CHECK((i.Get()==i));
+				CHECK((i.Get<type>()==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is a negative value") {
+		
+			stype i(-1);
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<type>(i)==i));
+				CHECK((i.Get()==i));
+				CHECK((i.Get<type>()==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is the smallest value") {
+		
+			stype i(std::numeric_limits<type>::min());
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<type>(i)==i));
+				CHECK((i.Get()==i));
+				CHECK((i.Get<type>()==i));
+			
+			}
+		
+		}
+	
+	}
+
+	WHEN("A safe integer of unsigned type is converted to an integer of equal width and of signed type") {
+	
+		typedef Integer<unsigned int> utype;
+		typedef int stype;
+	
+		AND_WHEN("The integer is too large to be represented as the signed type") {
+		
+			utype i(std::numeric_limits<stype>::max());
+			++i;
+		
+			THEN("An exception is thrown") {
+			
+				REQUIRE_THROWS_AS(static_cast<stype>(i),std::overflow_error);
+				REQUIRE_THROWS_AS(i.Get<stype>(),std::overflow_error);
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is positive") {
+		
+			utype i=1;
+		
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<stype>(i)==i));
+				CHECK((i.Get<stype>()==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is zero") {
+		
+			utype i;
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<stype>(i)==i));
+				CHECK((i.Get<stype>()==i));
+			
+			}
+		
+		}
+	
+	}
+	
+	WHEN("A safe integer of signed type is converted to an integer of equal width and of unsigned type") {
+	
+		typedef Integer<int> stype;
+		typedef unsigned int utype;
+		
+		AND_WHEN("The integer is zero") {
+		
+			stype i;
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<utype>(i)==i));
+				CHECK((i.Get<utype>()==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is positive") {
+		
+			stype i(std::numeric_limits<int>::max());
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<utype>(i)==i));
+				CHECK((i.Get<utype>()==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is negative") {
+		
+			stype i(-1);
+			
+			THEN("An exception is thrown") {
+			
+				REQUIRE_THROWS_AS(static_cast<utype>(i),std::overflow_error);
+				REQUIRE_THROWS_AS(i.Get<utype>(),std::overflow_error);
+			
+			}
+		
+		}
+	
+	}
+
+	//	WIDENING
+	
+	WHEN("A safe integer of unsigned type is converted to an unsigned integer of greater width") {
+	
+		typedef Integer<std::uint8_t> stype;
+		typedef std::uint16_t wtype;
+		
+		AND_WHEN("The integer is zero") {
+		
+			stype i;
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<wtype>(i)==i));
+				CHECK((i.Get<wtype>()==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is positive") {
+		
+			stype i(std::numeric_limits<stype>::max());
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<wtype>(i)==i));
+				CHECK((i.Get<wtype>()==i));
+			
+			}
+		
+		}
+	
+	}
+	
+	WHEN("A safe integer of signed type is converted to a signed integer of greater width") {
+	
+		typedef Integer<std::int8_t> stype;
+		typedef std::int16_t wtype;
+		
+		AND_WHEN("The integer is zero") {
+		
+			stype i;
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<wtype>(i)==i));
+				CHECK((i.Get<wtype>()==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is positive") {
+		
+			stype i(std::numeric_limits<stype>::max());
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<wtype>(i)==i));
+				CHECK((i.Get<wtype>()==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is negative") {
+		
+			stype i(std::numeric_limits<stype>::min());
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<wtype>(i)==i));
+				CHECK((i.Get<wtype>()==i));
+			
+			}
+		
+		}
+	
+	}
+	
+	WHEN("A safe integer of unsigned type is converted to a signed integer of greater width") {
+	
+		typedef std::int16_t type;
+		typedef Integer<std::uint8_t> stype;
+		
+		AND_WHEN("The integer is zero") {
+		
+			stype i;
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<type>(i)==i));
+				CHECK((i.Get<type>()==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is small and positive") {
+		
+			stype i(1);
+			
+			THEN("The safe integer is constructed successfully") {
+			
+				CHECK((static_cast<type>(i)==i));
+				CHECK((i.Get<type>()==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is large and positive") {
+		
+			stype i=std::numeric_limits<std::uint8_t>::max();
+			
+			THEN("The safe integer is constructed successfully") {
+			
+				CHECK((static_cast<type>(i)==i));
+				CHECK((i.Get<type>()==i));
+			
+			}
+		
+		}
+	
+	}
+	
+	WHEN("A safe integer of signed type is converted to an unsigned integer of greater width") {
+	
+		typedef std::uint16_t type;
+		typedef Integer<std::int8_t> stype;
+		
+		AND_WHEN("The integer is zero") {
+		
+			stype i;
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<type>(i)==i));
+				CHECK((i.Get<type>()==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is small and positive") {
+		
+			stype i(1);
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<type>(i)==i));
+				CHECK((i.Get<type>()==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is large and positive") {
+		
+			stype i(std::numeric_limits<std::int8_t>::max());
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<type>(i)==i));
+				CHECK((i.Get<type>()==i));
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is negative") {
+		
+			stype i(-1);
+			
+			THEN("An exception is thrown") {
+			
+				REQUIRE_THROWS_AS(static_cast<type>(i),std::overflow_error);
+				REQUIRE_THROWS_AS(i.Get<type>(),std::overflow_error);
+			
+			}
+		
+		}
+	
+	}
+	
+	//	NARROWING
+	
+	WHEN("A safe integer of unsigned type is converted to an unsigned type of lesser width") {
+	
+		typedef Integer<std::uint16_t> stype;
+		typedef std::uint8_t type;
+		
+		AND_WHEN("The integer is zero") {
+		
+			stype i;
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<type>(i)==i));
+				CHECK((i.Get<type>()==i));
+				
+			}
+		
+		}
+		
+		AND_WHEN("The integer is positive") {
+		
+			stype i(std::numeric_limits<type>::max());
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<type>(i)==i));
+				CHECK((i.Get<type>()==i));
+				
+			}
+		
+		}
+		
+		AND_WHEN("The integer is beyond the range of the destination type") {
+		
+			stype i(std::numeric_limits<stype>::max());
+			
+			THEN("An exception is thrown") {
+			
+				REQUIRE_THROWS_AS(static_cast<type>(i),std::overflow_error);
+				REQUIRE_THROWS_AS(i.Get<type>(),std::overflow_error);
+			
+			}
+		
+		}
+	
+	}
+	
+	WHEN("A safe integer of signed type is converted to a signed type of lesser width") {
+	
+		typedef Integer<std::int16_t> stype;
+		typedef std::int8_t type;
+		
+		AND_WHEN("The integer is zero") {
+		
+			stype i;
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<type>(i)==i));
+				CHECK((i.Get<type>()==i));
+				
+			}
+		
+		}
+		
+		AND_WHEN("The integer is positive") {
+		
+			stype i(std::numeric_limits<type>::max());
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<type>(i)==i));
+				CHECK((i.Get<type>()==i));
+				
+			}
+		
+		}
+		
+		AND_WHEN("The integer is positive and beyond the range of the destination type") {
+		
+			stype i(std::numeric_limits<stype>::max());
+			
+			THEN("An exception is thrown") {
+			
+				REQUIRE_THROWS_AS(static_cast<type>(i),std::overflow_error);
+				REQUIRE_THROWS_AS(i.Get<type>(),std::overflow_error);
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is negative") {
+		
+			stype i(std::numeric_limits<type>::min());
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<type>(i)==i));
+				CHECK((i.Get<type>()==i));
+				
+			}
+		
+		}
+		
+		AND_WHEN("The integer is negative and beyond the range of the destination type") {
+		
+			stype i(std::numeric_limits<stype>::min());
+			
+			THEN("An exception is thrown") {
+			
+				REQUIRE_THROWS_AS(static_cast<type>(i),std::overflow_error);
+				REQUIRE_THROWS_AS(i.Get<type>(),std::overflow_error);
+			
+			}
+		
+		}
+	
+	}
+	
+	WHEN("A safe integer of unsigned type is converted to a signed integer of lesser width") {
+	
+		typedef Integer<std::uint16_t> stype;
+		typedef std::int8_t type;
+		
+		AND_WHEN("The integer is zero") {
+		
+			stype i;
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<type>(i)==i));
+				CHECK((i.Get<type>()==i));
+				
+			}
+		
+		}
+		
+		AND_WHEN("The integer is positive") {
+		
+			stype i(std::numeric_limits<type>::max());
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<type>(i)==i));
+				CHECK((i.Get<type>()==i));
+				
+			}
+		
+		}
+		
+		AND_WHEN("The integer is positive and beyond the range of the destination type") {
+		
+			stype i(std::numeric_limits<stype>::max());
+			
+			THEN("An exception is thrown") {
+			
+				REQUIRE_THROWS_AS(static_cast<type>(i),std::overflow_error);
+				REQUIRE_THROWS_AS(i.Get<type>(),std::overflow_error);
+			
+			}
+		
+		}
+	
+	}
+	
+	WHEN("A safe integer of signed type is converted to an unsigned type of lesser width") {
+	
+		typedef Integer<std::int16_t> stype;
+		typedef std::uint8_t type;
+		
+		AND_WHEN("The integer is zero") {
+		
+			stype i;
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<type>(i)==i));
+				CHECK((i.Get<type>()==i));
+				
+			}
+		
+		}
+		
+		AND_WHEN("The integer is positive") {
+		
+			stype i(1);
+			
+			THEN("The conversion is successful") {
+			
+				CHECK((static_cast<type>(i)==i));
+				CHECK((i.Get<type>()==i));
+				
+			}
+		
+		}
+		
+		AND_WHEN("The integer is positive and beyond the range of the destination type") {
+		
+			stype i(std::numeric_limits<type>::max());
+			++i;
+			
+			THEN("An exception is thrown") {
+			
+				REQUIRE_THROWS_AS(static_cast<type>(i),std::overflow_error);
+				REQUIRE_THROWS_AS(i.Get<type>(),std::overflow_error);
+			
+			}
+		
+		}
+		
+		AND_WHEN("The integer is negative") {
+		
+			stype i(-1);
+			
+			THEN("An exception is thrown") {
+			
+				REQUIRE_THROWS_AS(static_cast<type>(i),std::overflow_error);
+				REQUIRE_THROWS_AS(i.Get<type>(),std::overflow_error);
+			
+			}
+		
+		}
+	
+	}
+	
 }
 
 
