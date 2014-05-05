@@ -1082,7 +1082,7 @@ namespace Safe {
 	
 	
 	template <typename A, typename B>
-	bool operator == (Integer<A> a, Integer<B> b) noexcept {
+	constexpr bool operator == (Integer<A> a, Integer<B> b) noexcept {
 	
 		return IsEqual(a.Get(),b.Get());
 	
@@ -1090,7 +1090,7 @@ namespace Safe {
 	
 	
 	template <typename A, typename B>
-	bool operator == (Integer<A> a, B b) noexcept {
+	constexpr bool operator == (Integer<A> a, B b) noexcept {
 	
 		return IsEqual(a.Get(),b);
 	
@@ -1098,7 +1098,7 @@ namespace Safe {
 	
 	
 	template <typename A, typename B>
-	bool operator == (A a, Integer<B> b) noexcept {
+	constexpr bool operator == (A a, Integer<B> b) noexcept {
 	
 		return IsEqual(a,b.Get());
 	
@@ -1106,7 +1106,7 @@ namespace Safe {
 	
 	
 	template <typename A, typename B>
-	bool operator != (Integer<A> a, Integer<B> b) noexcept {
+	constexpr bool operator != (Integer<A> a, Integer<B> b) noexcept {
 	
 		return !(a==b);
 	
@@ -1114,7 +1114,7 @@ namespace Safe {
 	
 	
 	template <typename A, typename B>
-	bool operator != (Integer<A> a, B b) noexcept {
+	constexpr bool operator != (Integer<A> a, B b) noexcept {
 	
 		return !(a==b);
 	
@@ -1122,7 +1122,7 @@ namespace Safe {
 	
 	
 	template <typename A, typename B>
-	bool operator != (A a, Integer<B> b) noexcept {
+	constexpr bool operator != (A a, Integer<B> b) noexcept {
 	
 		return !(a==b);
 	
@@ -1130,7 +1130,7 @@ namespace Safe {
 	
 	
 	template <typename A, typename B>
-	bool operator > (Integer<A> a, Integer<B> b) noexcept {
+	constexpr bool operator > (Integer<A> a, Integer<B> b) noexcept {
 	
 		return Compare(a.Get(),b.Get())>0;
 	
@@ -1138,7 +1138,7 @@ namespace Safe {
 	
 	
 	template <typename A, typename B>
-	bool operator > (Integer<A> a, B b) noexcept {
+	constexpr bool operator > (Integer<A> a, B b) noexcept {
 	
 		return Compare(a.Get(),b)>0;
 	
@@ -1146,7 +1146,7 @@ namespace Safe {
 	
 	
 	template <typename A, typename B>
-	bool operator > (A a, Integer<B> b) noexcept {
+	constexpr bool operator > (A a, Integer<B> b) noexcept {
 	
 		return Compare(a,b.Get())>0;
 	
@@ -1154,7 +1154,7 @@ namespace Safe {
 	
 	
 	template <typename A, typename B>
-	bool operator >= (Integer<A> a, Integer<B> b) noexcept {
+	constexpr bool operator >= (Integer<A> a, Integer<B> b) noexcept {
 	
 		return Compare(a.Get(),b.Get())>=0;
 	
@@ -1162,7 +1162,7 @@ namespace Safe {
 	
 	
 	template <typename A, typename B>
-	bool operator >= (Integer<A> a, B b) noexcept {
+	constexpr bool operator >= (Integer<A> a, B b) noexcept {
 	
 		return Compare(a.Get(),b)>=0;
 	
@@ -1170,7 +1170,7 @@ namespace Safe {
 	
 	
 	template <typename A, typename B>
-	bool operator >= (A a, Integer<B> b) noexcept {
+	constexpr bool operator >= (A a, Integer<B> b) noexcept {
 	
 		return Compare(a,b.Get())>=0;
 	
@@ -1178,7 +1178,7 @@ namespace Safe {
 	
 	
 	template <typename A, typename B>
-	bool operator < (Integer<A> a, Integer<B> b) noexcept {
+	constexpr bool operator < (Integer<A> a, Integer<B> b) noexcept {
 	
 		return Compare(a.Get(),b.Get())<0;
 	
@@ -1186,7 +1186,7 @@ namespace Safe {
 	
 	
 	template <typename A, typename B>
-	bool operator < (Integer<A> a, B b) noexcept {
+	constexpr bool operator < (Integer<A> a, B b) noexcept {
 	
 		return Compare(a.Get(),b)<0;
 	
@@ -1194,7 +1194,7 @@ namespace Safe {
 	
 	
 	template <typename A, typename B>
-	bool operator < (A a, Integer<B> b) noexcept {
+	constexpr bool operator < (A a, Integer<B> b) noexcept {
 	
 		return Compare(a,b.Get())<0;
 	
