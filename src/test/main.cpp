@@ -896,6 +896,176 @@ SCENARIO("Safe integers may be safely added") {
 }
 
 
+SCENARIO("Safe integers may be added and add-assigned to other safe integers, or integers, either on the right or the left") {
+
+	GIVEN("A safe integer") {
+	
+		int a=1;
+		Integer<int> s(a);
+		
+		GIVEN("A safe integer, such that the addition of the former and the latter does not overflow") {
+		
+			int b=2;
+			Integer<int> i(b);
+			int r=a+b;
+			
+			THEN("The former may be added to the latter") {
+			
+				CHECK((i+s)==r);
+				CHECK((i==b));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("The latter may be added to the former") {
+			
+				CHECK((s+i)==r);
+				CHECK((i==b));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("The former may be add-assigned to the latter") {
+			
+				CHECK((i+=s)==r);
+				CHECK((i==r));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("The latter may be add-assigned to the former") {
+			
+				CHECK((s+=i)==r);
+				CHECK((s==r));
+				CHECK((i==b));
+			
+			}
+		
+		}
+		
+		GIVEN("A safe integer, such that the addition of the former and the latter overflows") {
+		
+			auto b=std::numeric_limits<int>::max();
+			Integer<int> i(b);
+			
+			THEN("Adding the former to the latter raises an exception") {
+			
+				REQUIRE_THROWS_AS(s+i,std::overflow_error);
+				CHECK((s==a));
+				CHECK((i==b));
+			
+			}
+			
+			THEN("Adding the latter to the former raises an exception") {
+			
+				REQUIRE_THROWS_AS(i+s,std::overflow_error);
+				CHECK((s==a));
+				CHECK((i==b));
+			
+			}
+			
+			THEN("Add-assigning the former to the latter raises an exception") {
+			
+				REQUIRE_THROWS_AS(s+=i,std::overflow_error);
+				CHECK((s==a));
+				CHECK((i==b));
+			
+			}
+			
+			THEN("Add-assigning the latter to the former raises an exception") {
+			
+				REQUIRE_THROWS_AS(i+=s,std::overflow_error);
+				CHECK((s==a));
+				CHECK((i==b));
+			
+			}
+		
+		}
+		
+		GIVEN("An integer, such that the addition of the former and the latter does not overflow") {
+		
+			int b=2;
+			int i=b;
+			int r=a+b;
+			
+			THEN("The former may be added to the latter") {
+			
+				CHECK((i+s)==r);
+				CHECK((i==b));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("The latter may be added to the former") {
+			
+				CHECK((s+i)==r);
+				CHECK((i==b));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("The former may be add-assigned to the latter") {
+			
+				CHECK((i+=s)==r);
+				CHECK((i==r));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("The latter may be add-assigned to the former") {
+			
+				CHECK((s+=i)==r);
+				CHECK((s==r));
+				CHECK((i==b));
+			
+			}
+		
+		}
+		
+		GIVEN("An integer, such that the addition of the former and the latter overflows") {
+		
+			auto b=std::numeric_limits<int>::max();
+			int i=b;
+			
+			THEN("Adding the former to the latter raises an exception") {
+			
+				REQUIRE_THROWS_AS(s+i,std::overflow_error);
+				CHECK((s==a));
+				CHECK((i==b));
+			
+			}
+			
+			THEN("Adding the latter to the former raises an exception") {
+			
+				REQUIRE_THROWS_AS(i+s,std::overflow_error);
+				CHECK((s==a));
+				CHECK((i==b));
+			
+			}
+			
+			THEN("Add-assigning the former to the latter raises an exception") {
+			
+				REQUIRE_THROWS_AS(s+=i,std::overflow_error);
+				CHECK((s==a));
+				CHECK((i==b));
+			
+			}
+			
+			THEN("Add-assigning the latter to the former raises an exception") {
+			
+				REQUIRE_THROWS_AS(i+=s,std::overflow_error);
+				CHECK((s==a));
+				CHECK((i==b));
+			
+			}
+		
+		}
+	
+	}
+
+}
+
+
 SCENARIO("Safe integers may be safely incremented") {
 
 	GIVEN("A safe integer which is not the maximum value") {
@@ -1189,6 +1359,178 @@ SCENARIO("Safe integers may be safely decremented") {
 }
 
 
+SCENARIO("Safe integers and integers may be subtracted and subtract-assigned from other safe integers, and safe integers may be subtracted and subtract-assignedfrom integers") {
+
+	GIVEN("A safe integer") {
+	
+		auto a=1;
+		Integer<int> s(a);
+		
+		GIVEN("A safe integer, such that the subtraction of the former from the latter, and the latter from the former do not overflow") {
+		
+			int b=3;
+			Integer<int> i(b);
+			int rs=a-b;
+			int ri=b-a;
+			
+			THEN("The latter may be subtracted from the former") {
+			
+				CHECK((i-s)==ri);
+				CHECK((i==b));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("The former may be subtracted from the latter") {
+			
+				CHECK((s-i)==rs);
+				CHECK((i==b));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("The latter may be subtract-assigned from the former") {
+			
+				CHECK((i-=s)==ri);
+				CHECK((i==ri));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("The former may be subtract-assigned from the latter") {
+			
+				CHECK((s-=i)==rs);
+				CHECK((i==b));
+				CHECK((s==rs));
+			
+			}
+		
+		}
+		
+		GIVEN("A safe integer, such that subtraction overflows") {
+		
+			auto b=std::numeric_limits<int>::min();
+			Integer<int> i(b);
+			
+			THEN("When the latter is subtracted from the former, an exception is thrown") {
+			
+				REQUIRE_THROWS_AS(i-s,std::overflow_error);
+				CHECK((i==b));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("When the former is subtracted from the latter, an exception is thrown") {
+			
+				REQUIRE_THROWS_AS(s-i,std::overflow_error);
+				CHECK((i==b));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("When the latter is subtract-assigned from the former, an exception is thrown") {
+			
+				REQUIRE_THROWS_AS(i-=s,std::overflow_error);
+				CHECK((i==b));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("When the former is subtract-assigned from the latter, an exception is thrown") {
+			
+				REQUIRE_THROWS_AS(s-=i,std::overflow_error);
+				CHECK((i==b));
+				CHECK((s==a));
+			
+			}
+		
+		}
+		
+		GIVEN("An integer, such that the subtraction of the former from the latter, and the latter from the former do not overflow") {
+		
+			int b=3;
+			int i=b;
+			int rs=a-b;
+			int ri=b-a;
+			
+			THEN("The latter may be subtracted from the former") {
+			
+				CHECK((i-s)==ri);
+				CHECK((i==b));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("The former may be subtracted from the latter") {
+			
+				CHECK((s-i)==rs);
+				CHECK((i==b));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("The latter may be subtract-assigned from the former") {
+			
+				CHECK((i-=s)==ri);
+				CHECK((i==ri));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("The former may be subtract-assigned from the latter") {
+			
+				CHECK((s-=i)==rs);
+				CHECK((i==b));
+				CHECK((s==rs));
+			
+			}
+		
+		}
+		
+		GIVEN("An integer, such that subtraction overflows") {
+		
+			auto b=std::numeric_limits<int>::min();
+			int i=b;
+			
+			THEN("When the latter is subtracted from the former, an exception is thrown") {
+			
+				REQUIRE_THROWS_AS(i-s,std::overflow_error);
+				CHECK((i==b));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("When the former is subtracted from the latter, an exception is thrown") {
+			
+				REQUIRE_THROWS_AS(s-i,std::overflow_error);
+				CHECK((i==b));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("When the latter is subtract-assigned from the former, an exception is thrown") {
+			
+				REQUIRE_THROWS_AS(i-=s,std::overflow_error);
+				CHECK((i==b));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("When the former is subtract-assigned from the latter, an exception is thrown") {
+			
+				REQUIRE_THROWS_AS(s-=i,std::overflow_error);
+				CHECK((i==b));
+				CHECK((s==a));
+			
+			}
+		
+		}
+	
+	}
+
+}
+
+
 SCENARIO("Safe integers may be safely multiplied") {
 
 	GIVEN("An unsigned safe integer") {
@@ -1398,6 +1740,176 @@ SCENARIO("Safe integers may be safely multiplied") {
 }
 
 
+SCENARIO("Safe integers may be multiplied and multiply-assigned by other safe integers, or integers, either on the right or the left") {
+
+	GIVEN("A safe integer") {
+	
+		int a=2;
+		Integer<int> s(a);
+		
+		GIVEN("A safe integer, such that the multiplication of the former and the latter does not overflow") {
+		
+			int b=2;
+			Integer<int> i(b);
+			int r=a*b;
+			
+			THEN("The latter may be multiplied by the former") {
+			
+				CHECK((i*s)==r);
+				CHECK((i==b));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("The former may be multiplied by the latter") {
+			
+				CHECK((s*i)==r);
+				CHECK((i==b));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("The latter may be multiply-assigned by the former") {
+			
+				CHECK((i*=s)==r);
+				CHECK((i==r));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("The former may be multiply-assigned by the latter") {
+			
+				CHECK((s*=i)==r);
+				CHECK((s==r));
+				CHECK((i==b));
+			
+			}
+		
+		}
+		
+		GIVEN("A safe integer, such that the multiplication of the former and the latter overflows") {
+		
+			int b=std::numeric_limits<int>::max();
+			Integer<int> i(b);
+			
+			THEN("When the latter is multiplied by the former, an exception is thrown") {
+			
+				REQUIRE_THROWS_AS(i*s,std::overflow_error);
+				CHECK((i==b));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("When the former is multiplied by the latter, an exception is thrown") {
+			
+				REQUIRE_THROWS_AS(s*i,std::overflow_error);
+				CHECK((i==b));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("When the latter is multiply-assigned by the former, an exception is thrown") {
+			
+				REQUIRE_THROWS_AS(i*=s,std::overflow_error);
+				CHECK((i==b));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("When the former is multiply-assigned by the latter, an exception is thrown") {
+			
+				REQUIRE_THROWS_AS(s*=i,std::overflow_error);
+				CHECK((s==a));
+				CHECK((i==b));
+			
+			}
+		
+		}
+		
+		GIVEN("An integer, such that the multiplication of the former and the latter does not overflow") {
+		
+			int b=2;
+			int i=b;
+			int r=a*b;
+			
+			THEN("The latter may be multiplied by the former") {
+			
+				CHECK((i*s)==r);
+				CHECK((i==b));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("The former may be multiplied by the latter") {
+			
+				CHECK((s*i)==r);
+				CHECK((i==b));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("The latter may be multiply-assigned by the former") {
+			
+				CHECK((i*=s)==r);
+				CHECK((i==r));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("The former may be multiply-assigned by the latter") {
+			
+				CHECK((s*=i)==r);
+				CHECK((s==r));
+				CHECK((i==b));
+			
+			}
+		
+		}
+		
+		GIVEN("An integer, such that the multiplication of the former and the latter overflows") {
+		
+			int b=std::numeric_limits<int>::max();
+			int i=b;
+			
+			THEN("When the latter is multiplied by the former, an exception is thrown") {
+			
+				REQUIRE_THROWS_AS(i*s,std::overflow_error);
+				CHECK((i==b));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("When the former is multiplied by the latter, an exception is thrown") {
+			
+				REQUIRE_THROWS_AS(s*i,std::overflow_error);
+				CHECK((i==b));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("When the latter is multiply-assigned by the former, an exception is thrown") {
+			
+				REQUIRE_THROWS_AS(i*=s,std::overflow_error);
+				CHECK((i==b));
+				CHECK((s==a));
+			
+			}
+			
+			THEN("When the former is multiply-assigned by the latter, an exception is thrown") {
+			
+				REQUIRE_THROWS_AS(s*=i,std::overflow_error);
+				CHECK((s==a));
+				CHECK((i==b));
+			
+			}
+		
+		}
+	
+	}
+
+}
+
+
 SCENARIO("Safe integers may be safely divided") {
 
 	GIVEN("An unsigned safe integer") {
@@ -1476,6 +1988,255 @@ SCENARIO("Safe integers may be safely divided") {
 			
 				REQUIRE_THROWS_AS(s/-1,std::overflow_error);
 				REQUIRE_THROWS_AS(s%-1,std::overflow_error);
+			
+			}
+		
+		}
+	
+	}
+
+}
+
+
+SCENARIO("Safe integers may be divided and divide-assigned by other safe integers, or integers, and integers may be divided and divide-assigned by safe integers") {
+
+	GIVEN("A safe integer") {
+	
+		int a=10;
+		Integer<int> s(a);
+		
+		GIVEN("A safe integer") {
+		
+			int b=2;
+			Integer<int> i(b);
+			int q=a/b;
+			int r=a%b;
+			
+			THEN("They may be divided") {
+			
+				CHECK((s/i)==q);
+				CHECK((b==i));
+				CHECK((a==s));
+			
+			}
+			
+			THEN("Their remainder may be found") {
+			
+				CHECK((s%i)==r);
+				CHECK((b==i));
+				CHECK((a==s));
+			
+			}
+			
+			THEN("They may be divide-assigned") {
+			
+				CHECK((s/=i)==q);
+				CHECK((s==q));
+				CHECK((i==b));
+			
+			}
+			
+			THEN("They may be modulus-assigned") {
+			
+				CHECK((s%=i)==r);
+				CHECK((s==r));
+				CHECK((i==b));
+			
+			}
+		
+		}
+		
+		GIVEN("A safe integer by which division overflows") {
+		
+			Integer<int> i(0);
+			
+			THEN("Division throws an exception") {
+			
+				REQUIRE_THROWS_AS(s/i,std::overflow_error);
+				CHECK((0==i));
+				CHECK((a==s));
+			
+			}
+			
+			THEN("Modulus throws an exception") {
+			
+				REQUIRE_THROWS_AS(s%i,std::overflow_error);
+				CHECK((0==i));
+				CHECK((a==s));
+			
+			}
+			
+			THEN("Divide-assignment throws an exception") {
+			
+				REQUIRE_THROWS_AS(s/=i,std::overflow_error);
+				CHECK((0==i));
+				CHECK((a==s));
+			
+			}
+			
+			THEN("Modulus-assignment throws an exception") {
+			
+				REQUIRE_THROWS_AS(s%=i,std::overflow_error);
+				CHECK((0==i));
+				CHECK((a==s));
+			
+			}
+		
+		}
+		
+		GIVEN("An integer") {
+		
+			int b=2;
+			int i=b;
+			int q=a/b;
+			int r=a%b;
+			int ql=b/a;
+			int rl=b%a;
+			
+			THEN("They may be divided with the integer on the right") {
+			
+				CHECK((s/i)==q);
+				CHECK((b==i));
+				CHECK((a==s));
+			
+			}
+			
+			THEN("Their remainder may be found with the integer on the right") {
+			
+				CHECK((s%i)==r);
+				CHECK((b==i));
+				CHECK((a==s));
+			
+			}
+			
+			THEN("They may be divide-assigned with the integer on the right") {
+			
+				CHECK((s/=i)==q);
+				CHECK((s==q));
+				CHECK((i==b));
+			
+			}
+			
+			THEN("They may be modulus-assigned with the integer on the right") {
+			
+				CHECK((s%=i)==r);
+				CHECK((s==r));
+				CHECK((i==b));
+			
+			}
+			
+			THEN("They may be divided with the integer on the left") {
+			
+				CHECK((i/s)==ql);
+				CHECK((b==i));
+				CHECK((a==s));
+			
+			}
+			
+			THEN("Their remainder may be found with the integer on the left") {
+			
+				CHECK((i%s)==rl);
+				CHECK((b==i));
+				CHECK((a==s));
+			
+			}
+			
+			THEN("They may be divide-assigned with the integer on the left") {
+			
+				CHECK((i/=s)==ql);
+				CHECK((s==a));
+				CHECK((i==ql));
+			
+			}
+			
+			THEN("They may be modulus-assigned with the integer on the left") {
+			
+				CHECK((i%=s)==rl);
+				CHECK((s==a));
+				CHECK((i==rl));
+			
+			}
+		
+		}
+		
+		GIVEN("An integer by which division overflows") {
+		
+			int i=0;
+			
+			THEN("Division throws an exception") {
+			
+				REQUIRE_THROWS_AS(s/i,std::overflow_error);
+				CHECK((0==i));
+				CHECK((a==s));
+			
+			}
+			
+			THEN("Modulus throws an exception") {
+			
+				REQUIRE_THROWS_AS(s%i,std::overflow_error);
+				CHECK((0==i));
+				CHECK((a==s));
+			
+			}
+			
+			THEN("Divide-assignment throws an exception") {
+			
+				REQUIRE_THROWS_AS(s/=i,std::overflow_error);
+				CHECK((0==i));
+				CHECK((a==s));
+			
+			}
+			
+			THEN("Modulus-assignment throws an exception") {
+			
+				REQUIRE_THROWS_AS(s%=i,std::overflow_error);
+				CHECK((0==i));
+				CHECK((a==s));
+			
+			}
+		
+		}
+	
+	}
+	
+	GIVEN("A safe integer with a value of zero") {
+	
+		Integer<int> s(0);
+		
+		GIVEN("An integer") {
+		
+			int a=2;
+			int i=a;
+			
+			THEN("Division throws an exception") {
+			
+				REQUIRE_THROWS_AS(i/s,std::overflow_error);
+				CHECK((a==i));
+				CHECK((0==s));
+			
+			}
+			
+			THEN("Modulus throws an exception") {
+			
+				REQUIRE_THROWS_AS(i%s,std::overflow_error);
+				CHECK((a==i));
+				CHECK((0==s));
+			
+			}
+			
+			THEN("Divide-assignment throws an exception") {
+			
+				REQUIRE_THROWS_AS(i/=s,std::overflow_error);
+				CHECK((a==i));
+				CHECK((0==s));
+			
+			}
+			
+			THEN("Modulus-assignment throws an exception") {
+			
+				REQUIRE_THROWS_AS(i%=s,std::overflow_error);
+				CHECK((a==i));
+				CHECK((0==s));
 			
 			}
 		
