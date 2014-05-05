@@ -52,6 +52,35 @@ std::size_t Hash (T && obj) noexcept(noexcept(std::hash<typename std::decay<T>::
 }
 
 
+SCENARIO("Default constructed safe integers have a value of zero") {
+
+	GIVEN("A default constructed safe integer of signed type") {
+	
+		Integer<int> i;
+		
+		THEN("Its value is zero") {
+		
+			CHECK((i==0));
+		
+		}
+	
+	}
+	
+	GIVEN("A default constructed safe integer of unsigned type") {
+	
+		Integer<unsigned int> i;
+		
+		THEN("Its value is zero") {
+		
+			CHECK((i==0));
+		
+		}
+	
+	}
+
+}
+
+
 SCENARIO("Safe integers may be constructed from integers of any type") {
 
 	//	EQUAL WIDTH
