@@ -2984,6 +2984,22 @@ SCENARIO("Safe integers may be safely subtracted") {
 	
 	}
 
+	GIVEN("A signed safe integer equal to zero") {
+	
+		Integer<int> i;
+		
+		WHEN("The smallest integer of that type is subtracted from it") {
+		
+			THEN("An exception is thrown") {
+			
+				REQUIRE_THROWS_AS(i-std::numeric_limits<int>::min(),std::overflow_error);
+			
+			}
+		
+		}
+	
+	}
+	
 	GIVEN("A positive signed safe integer") {
 	
 		Integer<int> s(1);

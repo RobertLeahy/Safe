@@ -340,9 +340,9 @@ namespace Safe {
 			
 			static T Subtract (T a, T b) {
 			
-				//	If either operand is zero, subtraction cannot
-				//	overflow
-				if ((a==0) || (b==0)) return a-b;
+				//	If the second operand is zero, subtraction
+				//	cannot overflow
+				if (b==0) return a;
 				
 				//	Get signs of operands
 				auto s=get_signs(a,b);
